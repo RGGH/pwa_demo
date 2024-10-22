@@ -1,4 +1,4 @@
-const cacheName = 'hello-world-pwa';
+const cacheName = 'pwa_demo';
 const assetsToCache = [
   '/',
   '/index.html',
