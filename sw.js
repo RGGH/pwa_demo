@@ -12,7 +12,18 @@ self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
       console.log('Caching assets');
-      return cache.addAll(assetsToCache);
+      return Promise.all(
+        assetsToCache.map(asset => {
+          return fetch(asset).then(response => {
+            if (!response.ok) {
+              throw new Error(`Failed to fetch ${asset}: ${response.status}`);
+            }
+            return cache.add(asset); // Cache each asset individually
+          }).catch(error => {
+            console.error('Failed to cache asset:', error);
+          });
+        })
+      );
     })
   );
 });
@@ -41,3 +52,4 @@ self.addEventListener('activate', event => {
     })
   );
 });
+
