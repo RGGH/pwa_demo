@@ -4,7 +4,8 @@ const assetsToCache = [
   '/index.html',
   '/styles.css',
   '/icon-192x192.png',
-  '/icon-512x512.png'
+  '/icon-512x512.png',
+  '/offline.html' // Add an offline page if you have one
 ];
 
 // Install event: cache assets
@@ -12,18 +13,7 @@ self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
       console.log('Caching assets');
-      return Promise.all(
-        assetsToCache.map(asset => {
-          return fetch(asset).then(response => {
-            if (!response.ok) {
-              throw new Error(`Failed to fetch ${asset}: ${response.status}`);
-            }
-            return cache.add(asset); // Cache each asset individually
-          }).catch(error => {
-            console.error('Failed to cache asset:', error);
-          });
-        })
-      );
+      return cache.addAll(assetsToCache); // Cache all assets directly
     })
   );
 });
@@ -32,7 +22,10 @@ self.addEventListener('install', event => {
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request).then(cachedResponse => {
-      return cachedResponse || fetch(event.request);
+      return cachedResponse || fetch(event.request).catch(() => {
+        // If the network request fails, serve the offline page
+        return caches.match('/offline.html'); // Return your offline page if it exists
+      });
     })
   );
 });
