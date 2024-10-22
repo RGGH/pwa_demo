@@ -1,11 +1,11 @@
 const CACHE_NAME = 'pwa_demo';
 const assetsToCache = [
-  '/',
-  '/index.html',
-  '/styles.css',
-  '/icon-192x192.png',
-  '/icon-512x512.png',
-  '/offline.html' // Add an offline page if you have one
+  '/pwa_demo',
+  '/pwa_demo/index.html',
+  '/pwa_demo/styles.css',
+  '/pwa_demo/icon-192x192.png',
+  '/pwa_demo/icon-512x512.png',
+  '/pwa-demo/offline.html' // Add an offline page if you have one
 ];
 
 // Install event: cache assets
