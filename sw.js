@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 const CACHE_NAME = 'pwa_demo';
-=======
-const cacheName = 'pwa_demo';
->>>>>>> 945f951b0635b7b4a40049cfd66a9b25e6514629
 const assetsToCache = [
   '/',
   '/index.html',
