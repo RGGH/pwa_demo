@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="A simple Hello World PWA">
+        <title>Hello World PWA</title>
+        <link rel="stylesheet" href="styles.css">
+        <link rel="manifest" href="manifest.json">
+    </head>
+    <body>
+        <h1>Hello, World!</h1>
+        <p>This is a basic PWA example by @Learning_Rust</p>
+        <!-- Add this to display the 192x192 icon -->
+        <img
+            src="icon-192x192.png"
+            alt="App Icon"
+            width="192"
+            height="192"
+        >
+        <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('./sw.js').then(function(registration) {
+          console.log('Service Worker registered with scope:', registration.scope);
+        }, function(err) {
+          console.log('Service Worker registration failed:', err);
+        });
+      });
+    }
+        </script>
+    </body>
+</html>
+
